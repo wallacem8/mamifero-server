@@ -10,6 +10,6 @@ datasource db {
 model Javali {
   nome String @id
   peso Int
-  sexo String
+  sexo String @db.VarChar(255)
   adulto Boolean
 }
