@@ -8,6 +8,21 @@ export class MamiferoController {
         return res.status(200).json({ result: result });
     }
 
+    async getByName(req: Request, res: Response): Promise<Response> {
+        const nome = req.params.nome;
+      
+        const result = await prismaClient.javali.findMany({
+          where: {
+            nome: {
+              contains: nome,
+              mode: 'insensitive'
+            }
+          }
+        });
+      
+        return res.status(200).json(result);
+      }
+
     async create(req: Request, res: Response): Promise<Response> {
         await prismaClient.javali.create({
             data: {
@@ -21,10 +36,10 @@ export class MamiferoController {
     }
 
     async update(req: Request, res: Response): Promise<Response> {
-        const mamifero = parseInt(req.params.mamifero);
-        await prismaClient.javali.update({
+        const id = parseInt(req.params.id);
+        await prismaClient.javali.updateMany({
             where: {
-                id: mamifero
+                id: id
             },
             data: {
                 nome: req.body.nome,
@@ -37,10 +52,10 @@ export class MamiferoController {
     }
 
     async delete(req: Request, res: Response): Promise<Response> {
-        let mamifero = parseInt(req.params.mamifero);
-        await prismaClient.javali.delete({
+        const id = parseInt(req.params.id);
+        await prismaClient.javali.deleteMany({
             where: {
-                id: mamifero
+                id: id
             }
         });
     
