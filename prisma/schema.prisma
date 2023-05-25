@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Javali {
-  nome String @id
-  peso Int
-  sexo String @db.VarChar(255)
+  id     Int     @id @default(autoincrement())
+  nome   String
+  sexo   String  @db.VarChar(255)
   adulto Boolean
 }
